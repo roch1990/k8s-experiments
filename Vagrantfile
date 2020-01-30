@@ -1,10 +1,9 @@
 #Vagrantfile
 
-NAGENT = 3
+NAGENT = 2
 NSERVER = 1
 
 Vagrant.configure(2) do |config|
-  VAGRANT_VM_PROVIDER = "virtualbox"
 
 
   (1..NAGENT).each do |i|
@@ -13,13 +12,13 @@ Vagrant.configure(2) do |config|
       node.vm.hostname = "agent-#{i}"
 
       # BRIDGE
-      node.vm.network 'private_network', ip: "10.0.0.#{i + 1}"
+      node.vm.network 'private_network', ip: "192.168.0.#{i + 9}"
 
       # Expose nomad web
       # config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true
 
-      node.vm.provider :virtualbox do |v|
-        v.cpus = 1
+      node.vm.provider :libvirt do |v|
+        v.cpus = 2
         v.memory = 512
       end
 
@@ -39,15 +38,15 @@ Vagrant.configure(2) do |config|
       node.vm.hostname = "server-#{i}"
 
       # BRIDGE
-      node.vm.network 'private_network', ip: "10.0.0.#{i + 10}"
+      node.vm.network 'private_network', ip: "192.168.0.#{i + 10}"
 
       # Expose nomad web
-      config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true
-      config.vm.network "forwarded_port", guest: 8500, host: 8500, auto_correct: true
-      config.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
+      # config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true
+      # config.vm.network "forwarded_port", guest: 8500, host: 8500, auto_correct: true
+      # config.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
 
-      node.vm.provider :virtualbox do |v|
-        v.cpus = 1
+      node.vm.provider :libvirt do |v|
+        v.cpus = 2
         v.memory = 512
       end
 

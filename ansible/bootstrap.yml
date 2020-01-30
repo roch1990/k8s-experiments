@@ -6,5 +6,6 @@
     - common
 
 - import_playbook: docker.yml
+- import_playbook: k8s.yml
 #- import_playbook: consul.yml
 #- import_playbook: vault.yml

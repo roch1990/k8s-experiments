@@ -2,7 +2,7 @@
 
 - name: Install common packages
   yum:
-    name: "{{ item }}"
+    name: ['nano', 'unzip', 'net-tools', 'bind-utils', 'curl', 'telnet']
     state: latest
   with_items:
     - nano
@@ -11,3 +11,29 @@
     - bind-utils
     - curl
     - telnet
+
+- name: Swap off
+  shell: |
+    swapoff -a
+  args:
+    executable: /bin/bash
+
+- firewalld:
+    port: 10250-10252/tcp
+    permanent: yes
+    state: enabled
+
+- firewalld:
+    port: 2379-2380/tcp
+    permanent: yes
+    state: enabled
+
+- firewalld:
+    port: 6443/tcp
+    permanent: yes
+    state: enabled
+
+- firewalld:
+    port: 30000-32767/tcp
+    permanent: yes
+    state: enabled
