@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: True
+  roles:
+    - common
+
+- import_playbook: docker.yml
+#- import_playbook: consul.yml
+#- import_playbook: vault.yml
