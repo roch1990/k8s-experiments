@@ -14,12 +14,12 @@ Vagrant.configure(2) do |config|
       # BRIDGE
       node.vm.network 'private_network', ip: "192.168.0.#{i + 9}"
 
-      # Expose nomad web
-      # config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true
+      # Expose web
+      config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
 
       node.vm.provider :libvirt do |v|
         v.cpus = 2
-        v.memory = 512
+        v.memory = 1024
       end
 
       # provision only when all nodes started
@@ -40,14 +40,12 @@ Vagrant.configure(2) do |config|
       # BRIDGE
       node.vm.network 'private_network', ip: "192.168.0.#{i + 10}"
 
-      # Expose nomad web
-      # config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true
-      # config.vm.network "forwarded_port", guest: 8500, host: 8500, auto_correct: true
-      # config.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
+      # Expose web
+      config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
 
       node.vm.provider :libvirt do |v|
         v.cpus = 2
-        v.memory = 512
+        v.memory = 2048
       end
 
       # provision only when all nodes started
